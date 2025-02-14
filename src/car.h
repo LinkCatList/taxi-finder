@@ -2,21 +2,24 @@
 
 #include "types.h"
 
+#include <SFML/Graphics.hpp>
 #include <iostream>
 
 class Car {
 public:
-    Car(const std::string& Name, const std::string& Number, const std::string& DriversName);
+    Car(const std::string Name, const std::string Number, const std::string DriversName, std::string SpritePath);
 
     void UpdateMark(const double CurMark);
-    void SetBuisy(const double Buisy);
+    void SetBusy(const double Busy);
 
+    Point GetPosition();
+    sf::Sprite GetSprite();
 
 private:
     Point Position;
-    double Speed;
+    int MoveType;
 
-    bool IsBuisy;
+    bool IsBusy;
 
     double Mark;
     int TripsCount;
@@ -25,5 +28,10 @@ private:
     const std::string Number;
 
     std::string DriversName;
+
+    int VertexMatch;
+
+    sf::Texture Texture;
+    sf::Sprite Sprite;
 
 };

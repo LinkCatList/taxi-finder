@@ -9,6 +9,8 @@ public:
         , SearchRadius(Radius)
     {}
 
+    Point GetPosition();
+
 private:
     Point Position;
     double SearchRadius;

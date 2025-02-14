@@ -1,14 +1,17 @@
 #include "car.h"
 
-Car::Car(const std::string& Name, const std::string& Number, const std::string& DriversName)
+Car::Car(const std::string Name, const std::string Number, const std::string DriversName, std::string SpritePath)
     : Position(START_POINT)
-    , Speed(0)
-    , IsBuisy(false)
+    , MoveType(0)
+    , IsBusy(false)
     , Mark(0)
     , TripsCount(0)
     , Name(Name)
     , Number(Number)
     , DriversName(DriversName)
+    , VertexMatch(0)
+    , Texture(SpritePath)
+    , Sprite(Texture)
 {}
 
 void Car::UpdateMark(const double CurMark) {
@@ -16,6 +19,14 @@ void Car::UpdateMark(const double CurMark) {
     Mark = (Mark + CurMark) / 2;
 }
 
-void Car::SetBuisy(const double Buisy) {
-    IsBuisy = Buisy;
+void Car::SetBusy(const double Busy) {
+    IsBusy = Busy;
+}
+
+Point Car::GetPosition() {
+    return Position;
+}
+
+sf::Sprite Car::GetSprite() {
+    return Sprite;
 }

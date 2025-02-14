@@ -11,7 +11,9 @@ public:
 
     T Pop() {
         std::lock_guard<std::mutex> lock(Mutex);
+        auto front = Queue.front();
         Queue.pop();
+        return front;
     }
 
     bool Empty() {
@@ -22,4 +24,5 @@ public:
 private:
     std::queue<T> Queue;
     std::mutex Mutex;
+
 };
