@@ -8,6 +8,8 @@ public:
     Map(const Map& other) = delete;
     Map operator=(const Map& other) = delete;
 
+    sf::Sprite GetSprite();
+
 private:
     sf::Texture Texture;
     sf::Sprite Sprite;

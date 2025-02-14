@@ -1,19 +1,22 @@
 #pragma once
 
-#include "types.h"
-
 #include <SFML/Graphics.hpp>
+
+#include "types.h"
 #include <iostream>
 
 class Car {
 public:
-    Car(const std::string Name, const std::string Number, const std::string DriversName, std::string SpritePath);
+    Car(const std::string Name, const std::string Number, const std::string DriversName);
 
     void UpdateMark(const double CurMark);
     void SetBusy(const double Busy);
 
     Point GetPosition();
     sf::Sprite GetSprite();
+
+    void Rotate(int newMoveType);
+    void Normalize();
 
 private:
     Point Position;
