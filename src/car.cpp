@@ -40,14 +40,56 @@ void Car::Normalize() {
 }
 
 void Car::Rotate(int newMoveType) {
-    Sprite.setPosition({100, 100});
     if (MoveType == newMoveType) {
         return;
     }
     Normalize();
     for (int i = 0; i < newMoveType; ++i) {
         Sprite.rotate(sf::degrees(-90));
-        std::cout << "rotated" << std::endl;
     }
     MoveType = newMoveType;
+}
+
+void Car::SetPos(Point p) {
+    Sprite.setPosition({p.x, p.y});
+    Position = p;
+}
+
+void Car::MoveTo(Point p) {
+    if (std::abs(Position.x - p.x) > std::abs(Position.y - p.y)) {
+        if (Position.x < p.x) {
+            ++Position.x;
+        }
+        if (Position.x > p.x) {
+            --Position.x;
+        }
+    }
+    else {
+        if (Position.y < p.y) {
+            ++Position.y;
+        }
+        if (Position.y > p.y) {
+            --Position.y;
+        }
+    }
+    SetPos(Position);
+}
+
+void Car::Rotate(Point p) {
+    if (Position.y < p.y) {
+        Rotate(0);
+        MoveType = 0;
+    }
+    if (Position.y > p.y) {
+        Rotate(2);
+        MoveType = 2;
+    }
+    if (Position.x < p.x) {
+        Rotate(1);
+        MoveType = 1;
+    }
+    if (Position.x > p.x) {
+        Rotate(3);
+        MoveType = 3;
+    }
 }

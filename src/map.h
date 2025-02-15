@@ -1,4 +1,5 @@
 #pragma once
+
 #include <SFML/Graphics.hpp>
 
 class Map {
@@ -9,6 +10,7 @@ public:
     Map operator=(const Map& other) = delete;
 
     sf::Sprite GetSprite();
+    void Build();
 
 private:
     sf::Texture Texture;

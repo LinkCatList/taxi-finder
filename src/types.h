@@ -16,6 +16,10 @@ struct Point {
         return Point(x - other.x, y - other.y);
     }
 
+    bool operator ==(const Point& other) {
+        return x == other.x && y == other.y;
+    }
+
     double Dist(const Point& other) {
         return std::sqrt((x - other.x) * (x - other.x) + (y - other.y) * (y - other.y));
     }

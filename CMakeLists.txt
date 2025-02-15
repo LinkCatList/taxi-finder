@@ -10,6 +10,7 @@ FetchContent_Declare(SFML
     GIT_SHALLOW ON
     EXCLUDE_FROM_ALL
     SYSTEM)
+
 FetchContent_MakeAvailable(SFML)
 
 file(GLOB_RECURSE SOURCE_FILES src/*.cpp)

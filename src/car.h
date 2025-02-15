@@ -17,6 +17,9 @@ public:
 
     void Rotate(int newMoveType);
     void Normalize();
+    void SetPos(Point p);
+    void MoveTo(Point p);
+    void Rotate(Point p);
 
 private:
     Point Position;

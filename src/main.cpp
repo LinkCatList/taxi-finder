@@ -7,16 +7,21 @@
 #include <utility>
 
 #include "thread_safe_queue.h"
+#include "map.h"
 #include "user.h"
 #include "config.h"
 #include "car.h"
 #include "generate.h"
 
 int main () {
-    auto window = sf::RenderWindow(sf::VideoMode({1920u, 1080u}), "taxi finder");
+    auto window = sf::RenderWindow(sf::VideoMode({MAP_WIDTH, MAP_HEIGHT}), "taxi finder");
     window.setFramerateLimit(144);
-    Car car("Black Volga", "666", "Abdul", "pics/image-666.png");
-
+    Car car("Black Volga", "666", "Abdul");
+    car.SetPos({18, 115});
+    std::vector<Point> points = {{828, 100}, {828, 500}};
+    int ind = 0;
+    car.Rotate(1);
+    Map map(MAP_PATH);
 
     while (window.isOpen()) {
         while (const std::optional event = window.pollEvent()) {
@@ -26,8 +31,13 @@ int main () {
         }
 
         window.clear();
-        // window.draw(spriteMap);
+        window.draw(map.GetSprite());
         window.draw(car.GetSprite());
+        car.MoveTo(points[ind]);
+        if (car.GetPosition() == points[ind] && ind < points.size() - 1) {
+            ++ind;
+            car.Rotate(points[ind]);
+        }
         window.display();
     }
     // std::shared_ptr<ThreadSafeQueue<User>> pUsersQueue = std::make_shared<ThreadSafeQueue<User>>();
