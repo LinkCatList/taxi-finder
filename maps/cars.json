@@ -1,0 +1,24 @@
+{
+    "cars" : [
+        {
+            "car_name" : "Tesla",
+            "car_number" : "132",
+            "drivers_name" : "Дустрик"
+        },
+        {
+            "car_name" : "Cadillac",
+            "car_number" : "456",
+            "drivers_name" : "Забел"
+        },
+        {
+            "car_name" : "Zimmer",
+            "car_number" : "888",
+            "drivers_name" : "Жируи"
+        },
+        {
+            "car_name" : "Ford",
+            "car_number" : "780",
+            "drivers_name" : "Азарвард"
+        }
+    ]
+}

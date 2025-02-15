@@ -7,16 +7,16 @@
 #include <string>
 
 namespace Generate {
-    // inline User GenerateUser() {
-    //     // сделать потом нормальный генератор
-    //     return User({0, 0}, 1);
-    // }
+    std::vector<Car> GenerateCars(const std::string& jsonPath) {
+        std::ifstream file(jsonPath);
+        auto cars = nlohmann::json::parse(file);
+        
+        std::vector<Car> generatedCars;
+        for (size_t i = 0; i < cars["cars"].size(); ++i) {
+            auto car = cars["cars"][i];
+            generatedCars.emplace_back(car["car_name"], car["car_number"], car["drivers_name"]);
+        }
 
-    // inline Car GenerateCar() {
-    //     // сделать потом нормальный генератор
-    //     std::string driversName = "name";
-    //     std::string carNumber = std::to_string(100 + std::rand() % 900);
-    //     return Car(CAR_NAMES[rand() % CAR_NAMES.size()], carNumber, driversName);
-    // }
-
+        return generatedCars;
+    }
 }

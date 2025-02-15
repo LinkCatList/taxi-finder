@@ -3,6 +3,8 @@
 #include <SFML/Graphics.hpp>
 
 #include "types.h"
+#include "map.h"
+
 #include <iostream>
 
 class Car {
@@ -15,11 +17,18 @@ public:
     Point GetPosition();
     sf::Sprite GetSprite();
 
-    void Rotate(int newMoveType);
-    void Normalize();
     void SetPos(Point p);
+    void SetFinish(Point p);
+    void SetStart(Point p);
+
     void MoveTo(Point p);
     void Rotate(Point p);
+    void Rotate(int newMoveType);
+    void Normalize();
+
+    void InitStations(Map& map);
+
+    bool OnNextTick();
 
 private:
     Point Position;
@@ -39,5 +48,10 @@ private:
 
     sf::Texture Texture;
     sf::Sprite Sprite;
+
+    Point Start;
+    Point Finish;
+
+    std::vector<Point> Stations;
 
 };

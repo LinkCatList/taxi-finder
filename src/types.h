@@ -38,5 +38,3 @@ public:
         return std::hash<double>()(key.x) ^ (std::hash<double>()(key.y) << 1);
     }
 };
-
-#define START_POINT Point(0, 0)

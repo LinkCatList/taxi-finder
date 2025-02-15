@@ -16,16 +16,17 @@
 int main () {
     auto window = sf::RenderWindow(sf::VideoMode({MAP_WIDTH, MAP_HEIGHT}), "taxi finder");
     window.setFramerateLimit(144);
-    Car car("Black Volga", "666", "Abdul");
-    car.SetPos({44, 73});
-    int ind = 0;
-    car.Rotate(1);
+
     Map map(MAP_PATH);
     map.Build(JSON_MAP);
-    std::vector<Point> points = map.GetPath(car.GetPosition(), {536, 260});
-    for (auto i : points) {
-        std::cout << i.x << " " << i.y << std::endl;
-    }
+    Car car1("Tesla", "132", "Дустрик");
+    Car car2("Cadillac", "456", "Забел");
+    car1.SetFinish({543, 456});
+    car2.SetFinish({681, 73});
+    car1.InitStations(map);
+    car2.InitStations(map);
+
+    auto points = map.GetPoints();
 
     while (window.isOpen()) {
         while (const std::optional event = window.pollEvent()) {
@@ -36,44 +37,26 @@ int main () {
 
         window.clear();
         window.draw(map.GetSprite());
-        window.draw(car.GetSprite());
-        car.MoveTo(points[ind]);
-        if (car.GetPosition() == points[ind] && ind < points.size() - 1) {
-            ++ind;
-            car.Rotate(points[ind]);
+        window.draw(car1.GetSprite());
+        window.draw(car2.GetSprite());
+        bool flag = car1.OnNextTick();
+        if (flag) {
+            int index = rand() % points.size();
+            while (points[index] == car1.GetPosition()) {
+                index = rand() % points.size();
+            }
+            car1.SetFinish(points[index]);
+            car1.InitStations(map);
+        }
+        flag = car2.OnNextTick();
+        if (flag) {
+            int index = rand() % points.size();
+            while (points[index] == car2.GetPosition()) {
+                index = rand() % points.size();
+            }
+            car2.SetFinish(points[index]);
+            car2.InitStations(map);
         }
         window.display();
     }
-    // std::shared_ptr<ThreadSafeQueue<User>> pUsersQueue = std::make_shared<ThreadSafeQueue<User>>();
-
-    // std::vector<Car> cars;
-    // std::shared_ptr<std::vector<Car>> pCars = std::make_shared<std::vector<Car>>(cars);
-    
-    // std::mutex carMutex;
-    // for (int i = 0; i < CARS_CNT; ++i) {
-    //     cars.emplace_back(Generate::GenerateCar());
-    // }
-
-    // std::thread t1([pUsersQueue]() {
-    //     while (true) {
-    //         auto user = Generate::GenerateUser();
-
-    //         pUsersQueue->Push(user);
-    //         std::this_thread::sleep_for(std::chrono::seconds(60));
-    //     }
-    // });
-
-    // std::thread t2([pUsersQueue, pCars, &carMutex]() {
-    //     while (true) {
-    //         if (pUsersQueue->Empty()) {
-    //             std::this_thread::sleep_for(std::chrono::milliseconds(1));
-    //             continue;
-    //         }
-
-    //         auto user = pUsersQueue->Pop();
-    //     }
-    // });
-
-    // t1.join();
-    // t2.join();
 }

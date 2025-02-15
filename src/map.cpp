@@ -66,6 +66,10 @@ std::vector<Point> Map::GetPath(Point Start, Point Finish) {
         finish = parent[finish];
     }
 
-    std::reverse(path.begin(), path.end());
+    // std::reverse(path.begin(), path.end());
     return path;
+}
+
+std::vector<Point> Map::GetPoints() {
+    return IdToPoint;
 }

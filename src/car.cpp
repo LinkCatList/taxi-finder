@@ -13,6 +13,9 @@ Car::Car(const std::string Name, const std::string Number, const std::string Dri
     , VertexMatch(0)
     , Texture(PICS_PATH + Number + ".png")
     , Sprite(Texture)
+    , Start(START_POINT)
+    , Finish(START_POINT)
+    , Stations({})
 {
     Sprite.setOrigin({22, 37});
 }
@@ -98,4 +101,31 @@ void Car::Rotate(Point p) {
             MoveType = 3;
         }
     }
+}
+
+void Car::InitStations(Map& map) {
+    Stations = map.GetPath(Start, Finish);
+    Rotate(Stations.back());
+}
+
+bool Car::OnNextTick() {
+    MoveTo(Stations.back());
+    if (Position == Stations.back() && Stations.size() > 1) {
+        Stations.pop_back();
+        Rotate(Stations.back());
+        return false;
+    }
+    if (Position == Finish) {
+        Start = Position;
+        return true;
+    }
+    return false;
+}
+
+void Car::SetFinish(Point p) {
+    Finish = p;
+}
+
+void Car::SetStart(Point p) {
+    Start = p;
 }
