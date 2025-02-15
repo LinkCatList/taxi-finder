@@ -17,11 +17,15 @@ int main () {
     auto window = sf::RenderWindow(sf::VideoMode({MAP_WIDTH, MAP_HEIGHT}), "taxi finder");
     window.setFramerateLimit(144);
     Car car("Black Volga", "666", "Abdul");
-    car.SetPos({18, 115});
-    std::vector<Point> points = {{828, 100}, {828, 500}};
+    car.SetPos({44, 73});
     int ind = 0;
     car.Rotate(1);
     Map map(MAP_PATH);
+    map.Build(JSON_MAP);
+    std::vector<Point> points = map.GetPath(car.GetPosition(), {536, 260});
+    for (auto i : points) {
+        std::cout << i.x << " " << i.y << std::endl;
+    }
 
     while (window.isOpen()) {
         while (const std::optional event = window.pollEvent()) {

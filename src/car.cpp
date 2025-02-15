@@ -13,7 +13,9 @@ Car::Car(const std::string Name, const std::string Number, const std::string Dri
     , VertexMatch(0)
     , Texture(PICS_PATH + Number + ".png")
     , Sprite(Texture)
-{}
+{
+    Sprite.setOrigin({22, 37});
+}
 
 void Car::UpdateMark(const double CurMark) {
     ++TripsCount;
@@ -76,20 +78,24 @@ void Car::MoveTo(Point p) {
 }
 
 void Car::Rotate(Point p) {
-    if (Position.y < p.y) {
-        Rotate(0);
-        MoveType = 0;
+    if (std::abs(Position.y - p.y) > std::abs(Position.x - p.x)) {
+        if (Position.y < p.y) {
+            Rotate(0);
+            MoveType = 0;
+        }
+        if (Position.y > p.y) {
+            Rotate(2);
+            MoveType = 2;
+        }
     }
-    if (Position.y > p.y) {
-        Rotate(2);
-        MoveType = 2;
-    }
-    if (Position.x < p.x) {
-        Rotate(1);
-        MoveType = 1;
-    }
-    if (Position.x > p.x) {
-        Rotate(3);
-        MoveType = 3;
+    else {
+        if (Position.x < p.x) {
+            Rotate(1);
+            MoveType = 1;
+        }
+        if (Position.x > p.x) {
+            Rotate(3);
+            MoveType = 3;
+        }
     }
 }
